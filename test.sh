@@ -20,7 +20,6 @@ NODES=(
     "https://github.com/DataCTE/prompt_injection"
     "https://github.com/cubiq/ComfyUI_IPAdapter_plus"
     "https://github.com/Fannovel16/comfyui_controlnet_aux"
-
 )
 
 IPADAPTER_MODELS=(
