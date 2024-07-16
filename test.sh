@@ -12,14 +12,14 @@ PYTHON_PACKAGES=(
 
 NODES=(
     "https://github.com/ltdrdata/ComfyUI-Manager"
-    #"https://github.com/taabata/LCM_Inpaint_Outpaint_Comfy"
-    #"https://github.com/sipherxyz/comfyui-art-venture"
-    #"https://github.com/storyicon/comfyui_segment_anything"
-    #"https://github.com/ltdrdata/ComfyUI-Impact-Pack"
-    #"https://github.com/picturesonpictures/comfy_PoP"
-    #"https://github.com/DataCTE/prompt_injection"
-    #"https://github.com/cubiq/ComfyUI_IPAdapter_plus"
-    #"https://github.com/Fannovel16/comfyui_controlnet_aux"
+    "https://github.com/taabata/LCM_Inpaint_Outpaint_Comfy"
+    "https://github.com/sipherxyz/comfyui-art-venture"
+    "https://github.com/storyicon/comfyui_segment_anything"
+    "https://github.com/ltdrdata/ComfyUI-Impact-Pack"
+    "https://github.com/picturesonpictures/comfy_PoP"
+    "https://github.com/DataCTE/prompt_injection"
+    "https://github.com/cubiq/ComfyUI_IPAdapter_plus"
+    "https://github.com/Fannovel16/comfyui_controlnet_aux"
 
 )
 
