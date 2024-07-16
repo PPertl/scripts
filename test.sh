@@ -15,7 +15,7 @@ NODES=(
     "https://github.com/taabata/LCM_Inpaint_Outpaint_Comfy"
     "https://github.com/sipherxyz/comfyui-art-venture"
     "https://github.com/storyicon/comfyui_segment_anything"
-    "https://github.com/ltdrdata/ComfyUI-Impact-Pack"
+    #"https://github.com/ltdrdata/ComfyUI-Impact-Pack"
     "https://github.com/picturesonpictures/comfy_PoP"
     "https://github.com/DataCTE/prompt_injection"
     "https://github.com/cubiq/ComfyUI_IPAdapter_plus"
