@@ -160,5 +160,5 @@ function provisioning_print_end() {
 function provisioning_download() {
     wget -qnc --content-disposition --show-progress -e dotbytes="${3:-4M}" -P "$2" "$1"
 }
-
+printf "${WORKSPACE}"
 provisioning_start
