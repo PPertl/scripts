@@ -178,7 +178,7 @@ function downloadModels() {
 
 function downloadModelsThenCopy() {
     downloadModels
-    mkdir /workspace/storage
+    mkdir -p /workspace/storage
     cp -r /opt/storage/ /workspace/
 }
 
