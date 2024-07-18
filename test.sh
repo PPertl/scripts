@@ -68,7 +68,7 @@ function provisioning_start() {
     provisioning_print_header
     provisioning_get_nodes
     provisioning_install_python_packages
-    copyFromNetwork
+    copyModels
     provisioning_print_end
 }
 
@@ -140,9 +140,9 @@ function provisioning_download() {
 
 function copyModels() {
     if [[ -z "${COPY_MODELS_FROM_NETWORK}" ]]; then
-        copyFromNetworkVolume()                
+        copyFromNetworkVolume               
     else
-        downloadThenCopy()        
+        downloadThenCopy     
     fi
     
 }
