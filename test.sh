@@ -140,14 +140,16 @@ function provisioning_download() {
 
 function copyModels() {
     if [[ -n "${DOWNLOAD_MODELS}" ]]; then
-        downloadThenCopy               
+        downloadModels
+    elif [[ -n "${DOWNLOAD_MODELS_THEN_COPY}" ]]; then
+        downloadModelsThenCopy              
     else
         copyFromNetworkVolume
     fi
     
 }
 
-function downloadThenCopy() {
+function downloadModels() {
     provisioning_get_models \
         "${WORKSPACE}/storage/stable_diffusion/models/ckpt" \
         "${CHECKPOINT_MODELS[@]}"
@@ -172,6 +174,12 @@ function downloadThenCopy() {
     provisioning_get_models \
         "${WORKSPACE}/storage/stable_diffusion/models/esrgan" \
         "${ESRGAN_MODELS[@]}"
+}
+
+function downloadModelsThenCopy() {
+    downloadModels
+    mkdir /workspace/storage
+    cp -r /opt/storage/ /workspace/
 }
 
 function copyFromNetworkVolume() {
