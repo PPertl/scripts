@@ -177,5 +177,6 @@ function downloadThenCopy() {
 function copyFromNetworkVolume() {
     cp -r /workspace/ /opt/
 }
+
 printf "${WORKSPACE}"
 provisioning_start
