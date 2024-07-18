@@ -139,10 +139,10 @@ function provisioning_download() {
 }
 
 function copyModels() {
-    if [[ -z "${COPY_MODELS_FROM_NETWORK}" ]]; then
-        copyFromNetworkVolume               
+    if [[ -n "${DOWNLOAD_MODELS}" ]]; then
+        downloadThenCopy               
     else
-        downloadThenCopy     
+        copyFromNetworkVolume
     fi
     
 }
