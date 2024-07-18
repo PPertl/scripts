@@ -138,7 +138,43 @@ function provisioning_download() {
     wget -qnc --content-disposition --show-progress -e dotbytes="${3:-4M}" -P "$2" "$1"
 }
 
-function copyFromNetwork() {
+function copyModels() {
+    if [[ -z "${COPY_MODELS_FROM_NETWORK}" ]]; then
+        copyFromNetworkVolume()                
+    else
+        downloadThenCopy()        
+    fi
+    
+}
+
+function downloadThenCopy() {
+    provisioning_get_models \
+        "${WORKSPACE}/storage/stable_diffusion/models/ckpt" \
+        "${CHECKPOINT_MODELS[@]}"
+    provisioning_get_models \
+        "${WORKSPACE}/storage/stable_diffusion/models/ipadapter" \
+        "${IPADAPTER_MODELS[@]}"
+    provisioning_get_models \
+        "${WORKSPACE}/storage/stable_diffusion/models/clip_vision" \
+        "${CLIPVISION_MODELS[@]}"
+    provisioning_get_models \
+        "${WORKSPACE}/storage/stable_diffusion/models/unet" \
+        "${UNET_MODELS[@]}"
+    provisioning_get_models \
+        "${WORKSPACE}/storage/stable_diffusion/models/lora" \
+        "${LORA_MODELS[@]}"
+    provisioning_get_models \
+        "${WORKSPACE}/storage/stable_diffusion/models/controlnet" \
+        "${CONTROLNET_MODELS[@]}"
+    provisioning_get_models \
+        "${WORKSPACE}/storage/stable_diffusion/models/vae" \
+        "${VAE_MODELS[@]}"
+    provisioning_get_models \
+        "${WORKSPACE}/storage/stable_diffusion/models/esrgan" \
+        "${ESRGAN_MODELS[@]}"
+}
+
+function copyFromNetworkVolume() {
     cp -r /workspace/ /opt/
 }
 printf "${WORKSPACE}"
