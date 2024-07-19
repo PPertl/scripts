@@ -183,7 +183,7 @@ function downloadModelsThenCopy() {
 }
 
 function copyFromNetworkVolume() {
-    cp -r /workspace/ /opt/
+    cp -r /workspace/storage/ /opt/
 }
 
 printf "${WORKSPACE}"
