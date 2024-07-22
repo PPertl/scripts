@@ -24,7 +24,6 @@ NODES=(
     "https://github.com/taabata/LCM_Inpaint_Outpaint_Comfy"
     "https://github.com/kijai/ComfyUI-KJNodes"
     "https://github.com/shadowcz007/comfyui-ultralytics-yolo"
-
 )
 
 IPADAPTER_MODELS=(
@@ -63,6 +62,13 @@ CONTROLNET_MODELS=(
 ULTRALYTICS=(
     "https://huggingface.co/jags/yolov8_model_segmentation-set/resolve/main/face_yolov8n-seg2_60.pt"
 )
+
+ANNOTATORS=(
+    "https://huggingface.co/lllyasviel/Annotators/resolve/main/hand_pose_model.pth"
+    "https://huggingface.co/lllyasviel/Annotators/resolve/main/facenet.pth"
+    "https://huggingface.co/lllyasviel/Annotators/resolve/main/body_pose_model.pth"
+)
+
 
 ### DO NOT EDIT BELOW HERE UNLESS YOU KNOW WHAT YOU ARE DOING ###
 
@@ -182,6 +188,9 @@ function downloadModels() {
     provisioning_get_models \
         "${WORKSPACE}/storage/stable_diffusion/models/ultralytics/segm" \
         "${ULTRALYTICS[@]}"
+    provisioning_get_models \
+        "${WORKSPACE}/storage/stable_diffusion/models/ckpt/lllyasviel/Annotators" \
+        "${ANNOTATORS[@]}"
 }
 
 function downloadModelsThenCopy() {
