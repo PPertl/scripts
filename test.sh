@@ -22,6 +22,8 @@ NODES=(
     "https://github.com/palant/image-resize-comfyui"
     "https://github.com/cubiq/ComfyUI_essentials"
     "https://github.com/taabata/LCM_Inpaint_Outpaint_Comfy"
+    "https://github.com/kijai/ComfyUI-KJNodes"
+    "https://github.com/shadowcz007/comfyui-ultralytics-yolo"
 
 )
 
@@ -56,7 +58,10 @@ ESRGAN_MODELS=(
 
 CONTROLNET_MODELS=(
     "https://huggingface.co/thibaud/controlnet-openpose-sdxl-1.0/resolve/main/OpenPoseXL2.safetensors"
+)
 
+ULTRALYTICS=(
+    "https://huggingface.co/jags/yolov8_model_segmentation-set/resolve/main/face_yolov8n-seg2_60.pt"
 )
 
 ### DO NOT EDIT BELOW HERE UNLESS YOU KNOW WHAT YOU ARE DOING ###
@@ -174,6 +179,9 @@ function downloadModels() {
     provisioning_get_models \
         "${WORKSPACE}/storage/stable_diffusion/models/esrgan" \
         "${ESRGAN_MODELS[@]}"
+    provisioning_get_models \
+        "${WORKSPACE}/storage/stable_diffusion/models/ultralytics/segm" \
+        "${ULTRALYTICS[@]}"
 }
 
 function downloadModelsThenCopy() {
