@@ -44,15 +44,15 @@ UNET_MODELS=(
 ) #unet
 
 LORA_MODELS=(
- 
+
 )
 
 VAE_MODELS=(
 
 )
 
-ESRGAN_MODELS=(
-    
+UPSCALE_MODELS=(
+
 )
 
 CONTROLNET_MODELS=(
@@ -61,6 +61,7 @@ CONTROLNET_MODELS=(
 
 ULTRALYTICS=(
     "https://huggingface.co/jags/yolov8_model_segmentation-set/resolve/main/face_yolov8n-seg2_60.pt"
+    "https://huggingface.co/Bingsu/adetailer/resolve/main/person_yolov8m-seg.pt"
 )
 
 ANNOTATORS=(
@@ -157,51 +158,52 @@ function copyModels() {
     else
         copyFromNetworkVolume
     fi
-    
 }
+
+COMFY_BASEPATH="/opt/ComfyUI/models"
 
 function downloadModels() {
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/ckpt" \
+        "${COMFY_BASEPATH}/checkpoints" \
         "${CHECKPOINT_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/ipadapter" \
+        "${COMFY_BASEPATH}/ipadapter" \
         "${IPADAPTER_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/clip_vision" \
+        "${COMFY_BASEPATH}/clip_vision" \
         "${CLIPVISION_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/unet" \
+        "${COMFY_BASEPATH}/unet" \
         "${UNET_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/lora" \
+        "${COMFY_BASEPATH}/loras" \
         "${LORA_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/controlnet" \
+        "${COMFY_BASEPATH}/controlnet" \
         "${CONTROLNET_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/vae" \
+        "${COMFY_BASEPATH}/vae" \
         "${VAE_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/esrgan" \
-        "${ESRGAN_MODELS[@]}"
+        "${COMFY_BASEPATH}/upscale_models" \
+        "${UPSCALE_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/ultralytics/segm" \
+        "${COMFY_BASEPATH}/ultralytics/segm" \
         "${ULTRALYTICS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/ckpt/lllyasviel/Annotators" \
+        "${COMFY_BASEPATH}/checkpoints/lllyasviel/Annotators" \
         "${ANNOTATORS[@]}"
 }
 
 function downloadModelsThenCopy() {
     downloadModels
-    mkdir -p /workspace/storage
-    cp -r /opt/storage/ /workspace/
+    mkdir -p /workspace/ComfyUI/models
+    cp -r /opt/ComfyUI/models /workspace/ComfyUI/
 }
 
 function copyFromNetworkVolume() {
-    cp -r /workspace/storage/ /opt/
+    cp -r /workspace/ComfyUI/models/ /opt/ComfyUI
 }
 
-printf "${WORKSPACE}"
+printf "${COMFY_BASEPATH}"
 provisioning_start
