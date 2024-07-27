@@ -60,6 +60,7 @@ CONTROLNET_MODELS=(
 )
 
 ULTRALYTICS=(
+    "https://huggingface.co/jags/yolov8_model_segmentation-set/resolve/main/face_yolov8m-seg_60.pt"
     "https://huggingface.co/jags/yolov8_model_segmentation-set/resolve/main/face_yolov8n-seg2_60.pt"
     "https://huggingface.co/Bingsu/adetailer/resolve/main/person_yolov8m-seg.pt"
 )
@@ -154,7 +155,7 @@ function copyModels() {
     if [[ -n "${DOWNLOAD_MODELS}" ]]; then
         downloadModels
     elif [[ -n "${DOWNLOAD_MODELS_THEN_COPY}" ]]; then
-        downloadModelsThenCopy              
+        downloadModelsThenCopy
     else
         copyFromNetworkVolume
     fi
@@ -197,12 +198,12 @@ function downloadModels() {
 
 function downloadModelsThenCopy() {
     downloadModels
-    mkdir -p /workspace/ComfyUI/models
-    cp -r /opt/ComfyUI/models /workspace/ComfyUI/
+    mkdir -p /network-volume/ComfyUI/models
+    cp -r /opt/ComfyUI/models /network-volume/ComfyUI/
 }
 
 function copyFromNetworkVolume() {
-    cp -r /workspace/ComfyUI/models/ /opt/ComfyUI
+    cp -r /network-volume/ComfyUI/models/ /opt/ComfyUI
 }
 
 printf "${COMFY_BASEPATH}"
