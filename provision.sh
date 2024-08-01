@@ -125,7 +125,7 @@ function provisioning_get_models() {
         printf "WARNING: Low disk space allocation - Only the first model will be downloaded!\n"
         arr=("$1")
     fi
-    
+
     printf "Downloading %s model(s) to %s...\n" "${#arr[@]}" "$dir"
     for url in "${arr[@]}"; do
         printf "Downloading: %s\n" "${url}"
@@ -161,38 +161,38 @@ function copyModels() {
     fi
 }
 
-COMFY_BASEPATH="/opt/ComfyUI/models"
+COMFY_BASEPATH="/opt/ComfyUI"
 
 function downloadModels() {
     provisioning_get_models \
-        "${COMFY_BASEPATH}/checkpoints" \
+        "${COMFY_BASEPATH}/models/checkpoints" \
         "${CHECKPOINT_MODELS[@]}"
     provisioning_get_models \
-        "${COMFY_BASEPATH}/ipadapter" \
+        "${COMFY_BASEPATH}/models/ipadapter" \
         "${IPADAPTER_MODELS[@]}"
     provisioning_get_models \
-        "${COMFY_BASEPATH}/clip_vision" \
+        "${COMFY_BASEPATH}/models/clip_vision" \
         "${CLIPVISION_MODELS[@]}"
     provisioning_get_models \
-        "${COMFY_BASEPATH}/unet" \
+        "${COMFY_BASEPATH}/models/unet" \
         "${UNET_MODELS[@]}"
     provisioning_get_models \
-        "${COMFY_BASEPATH}/loras" \
+        "${COMFY_BASEPATH}/models/loras" \
         "${LORA_MODELS[@]}"
     provisioning_get_models \
-        "${COMFY_BASEPATH}/controlnet" \
+        "${COMFY_BASEPATH}/models/controlnet" \
         "${CONTROLNET_MODELS[@]}"
     provisioning_get_models \
-        "${COMFY_BASEPATH}/vae" \
+        "${COMFY_BASEPATH}/models/vae" \
         "${VAE_MODELS[@]}"
     provisioning_get_models \
-        "${COMFY_BASEPATH}/upscale_models" \
+        "${COMFY_BASEPATH}/models/upscale_models" \
         "${UPSCALE_MODELS[@]}"
     provisioning_get_models \
-        "${COMFY_BASEPATH}/ultralytics/segm" \
+        "${COMFY_BASEPATH}/models/ultralytics/segm" \
         "${ULTRALYTICS[@]}"
     provisioning_get_models \
-        "${COMFY_BASEPATH}/checkpoints/lllyasviel/Annotators" \
+        "${COMFY_BASEPATH}/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators" \
         "${ANNOTATORS[@]}"
 }
 
@@ -200,10 +200,14 @@ function downloadModelsThenCopy() {
     downloadModels
     mkdir -p /network-volume/ComfyUI/models
     cp -r /opt/ComfyUI/models /network-volume/ComfyUI/
+
+    mkdir -p /network-volume/ComfyUI/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators
+    cp -r /opt/ComfyUI/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators /network-volume/ComfyUI/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/
 }
 
 function copyFromNetworkVolume() {
     cp -r /network-volume/ComfyUI/models/ /opt/ComfyUI
+    cp -r /network-volume/ComfyUI/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators/ /opt/ComfyUI/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/
 }
 
 printf "${COMFY_BASEPATH}"
