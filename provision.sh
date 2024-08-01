@@ -207,8 +207,8 @@ function downloadModelsThenCopy() {
 
 function copyFromNetworkVolume() {
     cp -r /network-volume/ComfyUI/models/ /opt/ComfyUI
+    mkdir -p /opt/ComfyUI/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators
     cp -r /network-volume/ComfyUI/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators/ /opt/ComfyUI/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/
 }
 
-printf "${COMFY_BASEPATH}"
 provisioning_start
