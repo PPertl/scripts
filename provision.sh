@@ -11,19 +11,19 @@ PYTHON_PACKAGES=(
 )
 
 NODES=(
-    "https://github.com/ltdrdata/ComfyUI-Manager"
-    "https://github.com/sipherxyz/comfyui-art-venture"
-    "https://github.com/storyicon/comfyui_segment_anything"
-    "https://github.com/ltdrdata/ComfyUI-Impact-Pack"
-    "https://github.com/picturesonpictures/comfy_PoP"
-    "https://github.com/DataCTE/prompt_injection"
-    "https://github.com/cubiq/ComfyUI_IPAdapter_plus"
-    "https://github.com/Fannovel16/comfyui_controlnet_aux"
-    "https://github.com/palant/image-resize-comfyui"
-    "https://github.com/cubiq/ComfyUI_essentials"
-    "https://github.com/taabata/LCM_Inpaint_Outpaint_Comfy"
-    "https://github.com/kijai/ComfyUI-KJNodes"
-    "https://github.com/shadowcz007/comfyui-ultralytics-yolo"
+    "https://github.com/PPertl/ComfyUI-Manager"
+    "https://github.com/PPertl/comfyui-art-venture"
+    "https://github.com/PPertl/comfyui_segment_anything"
+    "https://github.com/PPertl/ComfyUI-Impact-Pack"
+    "https://github.com/PPertl/comfy_PoP"
+    "https://github.com/PPertl/prompt_injection"
+    "https://github.com/PPertl/ComfyUI_IPAdapter_plus"
+    "https://github.com/PPertl/comfyui_controlnet_aux"
+    "https://github.com/PPertl/image-resize-comfyui"
+    "https://github.com/PPertl/ComfyUI_essentials"
+    "https://github.com/PPertl/LCM_Inpaint_Outpaint_Comfy"
+    "https://github.com/PPertl/ComfyUI-KJNodes"
+    "https://github.com/PPertl/comfyui-ultralytics-yolo"
 )
 
 IPADAPTER_MODELS=(
@@ -44,15 +44,15 @@ UNET_MODELS=(
 ) #unet
 
 LORA_MODELS=(
- 
+
 )
 
 VAE_MODELS=(
 
 )
 
-ESRGAN_MODELS=(
-    
+UPSCALE_MODELS=(
+
 )
 
 CONTROLNET_MODELS=(
@@ -60,7 +60,9 @@ CONTROLNET_MODELS=(
 )
 
 ULTRALYTICS=(
+    "https://huggingface.co/jags/yolov8_model_segmentation-set/resolve/main/face_yolov8m-seg_60.pt"
     "https://huggingface.co/jags/yolov8_model_segmentation-set/resolve/main/face_yolov8n-seg2_60.pt"
+    "https://huggingface.co/Bingsu/adetailer/resolve/main/person_yolov8m-seg.pt"
 )
 
 ANNOTATORS=(
@@ -123,7 +125,7 @@ function provisioning_get_models() {
         printf "WARNING: Low disk space allocation - Only the first model will be downloaded!\n"
         arr=("$1")
     fi
-    
+
     printf "Downloading %s model(s) to %s...\n" "${#arr[@]}" "$dir"
     for url in "${arr[@]}"; do
         printf "Downloading: %s\n" "${url}"
@@ -153,55 +155,60 @@ function copyModels() {
     if [[ -n "${DOWNLOAD_MODELS}" ]]; then
         downloadModels
     elif [[ -n "${DOWNLOAD_MODELS_THEN_COPY}" ]]; then
-        downloadModelsThenCopy              
+        downloadModelsThenCopy
     else
         copyFromNetworkVolume
     fi
-    
 }
+
+COMFY_BASEPATH="/opt/ComfyUI"
 
 function downloadModels() {
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/ckpt" \
+        "${COMFY_BASEPATH}/models/checkpoints" \
         "${CHECKPOINT_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/ipadapter" \
+        "${COMFY_BASEPATH}/models/ipadapter" \
         "${IPADAPTER_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/clip_vision" \
+        "${COMFY_BASEPATH}/models/clip_vision" \
         "${CLIPVISION_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/unet" \
+        "${COMFY_BASEPATH}/models/unet" \
         "${UNET_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/lora" \
+        "${COMFY_BASEPATH}/models/loras" \
         "${LORA_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/controlnet" \
+        "${COMFY_BASEPATH}/models/controlnet" \
         "${CONTROLNET_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/vae" \
+        "${COMFY_BASEPATH}/models/vae" \
         "${VAE_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/esrgan" \
-        "${ESRGAN_MODELS[@]}"
+        "${COMFY_BASEPATH}/models/upscale_models" \
+        "${UPSCALE_MODELS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/ultralytics/segm" \
+        "${COMFY_BASEPATH}/models/ultralytics/segm" \
         "${ULTRALYTICS[@]}"
     provisioning_get_models \
-        "${WORKSPACE}/storage/stable_diffusion/models/ckpt/lllyasviel/Annotators" \
+        "${COMFY_BASEPATH}/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators" \
         "${ANNOTATORS[@]}"
 }
 
 function downloadModelsThenCopy() {
     downloadModels
-    mkdir -p /workspace/storage
-    cp -r /opt/storage/ /workspace/
+    mkdir -p /network-volume/ComfyUI/models
+    cp -r /opt/ComfyUI/models /network-volume/ComfyUI/
+
+    mkdir -p /network-volume/ComfyUI/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators
+    cp -r /opt/ComfyUI/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators /network-volume/ComfyUI/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/
 }
 
 function copyFromNetworkVolume() {
-    cp -r /workspace/storage/ /opt/
+    cp -r /network-volume/ComfyUI/models/ /opt/ComfyUI
+    mkdir -p /opt/ComfyUI/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators
+    cp -r /network-volume/ComfyUI/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/Annotators/ /opt/ComfyUI/custom_nodes/comfyui_controlnet_aux/ckpts/lllyasviel/
 }
 
-printf "${WORKSPACE}"
 provisioning_start
