@@ -11,19 +11,19 @@ PYTHON_PACKAGES=(
 )
 
 NODES=(
-    "https://github.com/ltdrdata/ComfyUI-Manager"
-    "https://github.com/sipherxyz/comfyui-art-venture"
-    "https://github.com/storyicon/comfyui_segment_anything"
-    "https://github.com/ltdrdata/ComfyUI-Impact-Pack"
-    "https://github.com/picturesonpictures/comfy_PoP"
-    "https://github.com/DataCTE/prompt_injection"
-    "https://github.com/cubiq/ComfyUI_IPAdapter_plus"
-    "https://github.com/Fannovel16/comfyui_controlnet_aux"
-    "https://github.com/palant/image-resize-comfyui"
-    "https://github.com/cubiq/ComfyUI_essentials"
-    "https://github.com/taabata/LCM_Inpaint_Outpaint_Comfy"
-    "https://github.com/kijai/ComfyUI-KJNodes"
-    "https://github.com/shadowcz007/comfyui-ultralytics-yolo"
+    "https://github.com/PPertl/ComfyUI-Manager"
+    "https://github.com/PPertl/comfyui-art-venture"
+    "https://github.com/PPertl/comfyui_segment_anything"
+    "https://github.com/PPertl/ComfyUI-Impact-Pack"
+    "https://github.com/PPertl/comfy_PoP"
+    "https://github.com/PPertl/prompt_injection"
+    "https://github.com/PPertl/ComfyUI_IPAdapter_plus"
+    "https://github.com/PPertl/comfyui_controlnet_aux"
+    "https://github.com/PPertl/image-resize-comfyui"
+    "https://github.com/PPertl/ComfyUI_essentials"
+    "https://github.com/PPertl/LCM_Inpaint_Outpaint_Comfy"
+    "https://github.com/PPertl/ComfyUI-KJNodes"
+    "https://github.com/PPertl/comfyui-ultralytics-yolo"
 )
 
 IPADAPTER_MODELS=(
